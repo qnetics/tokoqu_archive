@@ -4,6 +4,7 @@ def rupiah_format(angka, with_prefix) -> str :
 
     desimal = 2
 
+    locale.setlocale(locale.LC_ALL, "de_DE.UTF-8")
     locale.setlocale(locale.LC_NUMERIC, 'IND')
     rupiah = locale.format("%.*f", (desimal, angka), True)
 
