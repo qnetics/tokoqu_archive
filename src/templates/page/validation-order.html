@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>pengecekan pemesanan {{ single_product["name"] }}</title>
+    <link href="/static/page/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/page/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/page/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/static/page/css/price-range.css" rel="stylesheet">
+    <link href="/static/page/css/animate.css" rel="stylesheet">
+	<link href="/static/page/css/main.css" rel="stylesheet">
+	<link href="/static/page/css/responsive.css" rel="stylesheet">
+	<style>
+		/* Styles for wrapping the search box */
+
+		.main {
+			width: 50%;
+			margin: 50px auto;
+		}
+
+		/* Bootstrap 4 text input with search icon */
+
+		.has-search .form-control {
+			padding-left: 2.375rem;
+		}
+
+		.has-search .form-control-feedback {
+			position: absolute;
+			z-index: 2;
+			display: block;
+			width: 2.375rem;
+			height: 2.375rem;
+			line-height: 2.375rem;
+			text-align: center;
+			pointer-events: none;
+			color: #aaa;
+		}
+	</style>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+</head><!--/head-->
+
+<body>
+	<header id="header"><!--header-->
+		
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="#"><img src="/static/logo.png" alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	</header><!--/header-->
+	
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="product-details"><!--product-details-->
+						<div class="col-sm-5">
+							<div class="view-product">
+								<div id="product-images" class="carousel slide" data-ride="carousel">
+									<!-- Wrapper for slides -->
+									<div class="carousel-inner">
+										{% for single_images in range(length_single_images) %}
+											{% if single_images == 0%}
+												<div class="item active">
+													<img src="{{ single_product['product_images'][single_images] }}" alt="" />
+												</div>
+											{% else %}
+												<div class="item">
+													<img src="{{ single_product['product_images'][single_images] }}" alt="" />
+												</div>
+											{% endif %}
+										{% endfor %}
+									</div>
+
+									<!-- Controls -->
+									<a class="left item-control" href="#product-images" data-slide="prev">
+										<i class="fa fa-angle-left"></i>
+									</a>
+									<a class="right item-control" href="#product-images" data-slide="next">
+										<i class="fa fa-angle-right"></i>
+									</a>
+
+								</div>
+							</div>
+							<div id="similar-product" class="carousel slide" data-ride="carousel">
+								
+								  <!-- Wrapper for slides -->
+								    <div class="carousel-inner">
+
+										{% for index_variant in range( length_variant_images ) %}
+											{% if index_variant == 0 %}
+												<div class="item active">
+													{% for variant in variant_images[index_variant] %}
+														<a href="{{ variant }}"><img height="84" width="84" src="{{ variant }}" alt=""></a>
+													{% endfor %}
+												</div>
+											{% else %}
+												<div class="item">
+													{% for variant in variant_images[index_variant] %}
+														<a href="{{ variant }}"><img height="84" width="84" src="{{ variant }}" alt=""></a>
+													{% endfor %}
+												</div>
+											{% endif %}
+										{% endfor %}
+										
+									</div>
+
+									<!-- Controls -->
+									<a class="left item-control" href="#similar-product" data-slide="prev">
+										<i class="fa fa-angle-left"></i>
+									</a>
+									<a class="right item-control" href="#similar-product" data-slide="next">
+										<i class="fa fa-angle-right"></i>
+									</a>
+							</div>
+						</div>
+						<div class="col-sm-7">
+							<div class="product-information"><!--/product-information-->
+								<form action="{{ url_for('order_purchace_queue') }}" method="POST">
+									<h1 style="color: #fe980f;">Validasi data pesanan</h1>
+									<br>
+									<h5 style = "text-align: left;">ID Barang</h5>
+									<input type="text" class="form-control customer-name" name="id" value="{{ single_product['id'] }}" disabled>
+									<br>
+									<h3 style="color: #fe980f;">Data Pembeli</h3>
+									<div class="form-group">
+										<br>
+										<h5 style = "text-align: left;">Nama Pembeli</h5>
+										<input type="text" class="form-control" name="name" value="{{ order_data['name'] }}">
+										<br>
+										<h5 style = "text-align: left;">Nomor Telepon</h5>
+										<input type="tel"  class="form-control" name="tel_num" value="{{ order_data['tel_num'] }}">
+									</div>
+									<br>
+									<h3 style="color: #fe980f;">Alamat Pembeli</h3>
+									<div class="form-group">
+										<br>
+										<h5 style = "text-align: left;">Jalan</h5>
+										<input class="form-control" type="text" name="jl" value="{{ order_data['jl'] }}">
+										<br>
+										<h5 style = "text-align: left;">RT</h5>
+										<input class="form-control" type="text" name="rt" value="{{ order_data['rt'] }}">
+										<br>
+										<h5 style = "text-align: left;">RW</h5>
+										<input class="form-control" type="text" name="rw" value="{{ order_data['rw'] }}">
+										<br>
+										<h5 style = "text-align: left;">Kelurahan</h5>
+										<input class="form-control" type="text" name="kel" value="{{ order_data['kel'] }}">
+										<br>
+										<h5 style = "text-align: left;">Kecamatan</h5>
+										<input class="form-control" type="text" name="kec" value="{{ order_data['kec'] }}">
+										<br>
+										<h5 style = "text-align: left;">Kota/Kabupaten</h5>
+										<input class="form-control" type="text" name="city" value="{{ order_data['city'] }}">
+										<br>
+										<h5 style = "text-align: left;">Provinsi</h5>
+										<input class="form-control" type="text" name="prov" value="{{ order_data['prov'] }}">
+										<br>
+										<h5 style = "text-align: left;">Nomor Rumah</h5>
+										<input class="form-control" type="text" name="no" value="{{ order_data['no'] }}">
+										<br>
+										<h5 style = "text-align: left;">Kode Pos</h5>
+										<input class="form-control" type="text" name="postal" value="{{ order_data['postal'] }}">
+									</div>
+									<br>
+									<h3 style="color: #fe980f;">Keterangan Pesanan</h3>
+									<div class="form-group">
+										<br>
+										<h5 style = "text-align: left;">Banyak Barang</h5>
+										<input class="form-control" type="number" name="quantity" value="{{ order_data['quantity'] }}">
+										<br>
+										<h5 style = "text-align: left;">Deskripsi Barang</h5>
+										<textarea class="form-control" name="desc" cols="30" rows="10" name="desc" value="{{ order_data['desc'] }}">{{ order_data['desc'] }}</textarea>
+									</div>
+									<br>
+									<p style = "text-align: left;color: orangered;">*PERHATIAN : cek kembali data di atas, dan ganti jika terdapat kesalahan</p>
+									<br>
+									<button type="submit" class="btn btn-default" style="background-color : #fe980f;color : #ffffff;border-color: #fe980f;">
+										<i class="fa fa-shopping-cart" style="color : white" ></i>
+										Bayar Pesanan
+									</button>
+								</form>
+							</div><!--/product-information-->
+						</div>
+					</div><!--/product-details-->
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<footer id="footer"><!--Footer-->
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Layanan</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Membangun Bisnis</a></li>
+								<li><a href="#">Hubungi kami</a></li>
+								<li><a href="#">Status Pesanan</a></li>
+								<li><a href="#">Laporan</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Tentang</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Bisnis</a></li>
+								<li><a href="#">Pengembang</a></li>
+								<li><a href="#">Lokasi</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>Ingin Berlangganan?</h2>
+							<form action="#" class="searchform">
+								<input type="text" placeholder="Your email address" />
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Jangan ketinggalan....<br />dapatkan selalu update produk terbaru dari TokoQu.</p>
+							</form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © <script>var CurrentYear = new Date().getFullYear()
+						document.write(CurrentYear)</script> TokoQu.</p>
+					<p class="pull-right">Inc. All rights reserved.</p>
+				</div>
+			</div>
+		</div>
+		
+	</footer><!--/Footer-->
+	
+    <script src="/static/page/js/jquery.js"></script>
+	<script src="/static/page/js/price-range.js"></script>
+    <script src="/static/page/js/jquery.scrollUp.min.js"></script>
+	<script src="/static/page/js/bootstrap.min.js"></script>
+    <script src="/static/page/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/page/js/main.js"></script>
+</body>
+</html>

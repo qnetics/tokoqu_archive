@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=""> 
+    <meta name="author" content="">
+	<meta name="pixel_id" content="{{ data_meta['pixel_id'] }}">
+	<meta name="price_value" content="{{ data_meta['price_value'] }}">
+	<meta name="content_name" content="{{ data_meta['content_name'] }}">
+    <title>pemesanan {{ single_product['name'] }}</title>
+    <link href="/static/page/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/page/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/page/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/static/page/css/price-range.css" rel="stylesheet">
+    <link href="/static/page/css/animate.css" rel="stylesheet">
+	<link href="/static/page/css/main.css" rel="stylesheet">
+	<link href="/static/page/css/responsive.css" rel="stylesheet">
+	<script async="" src="/static/fbevents.js"></script>
+	<script>
+
+		var idPixel     = document.getElementsByTagName("meta")[4].content;
+		var priceValue  = document.getElementsByTagName("meta")[5].content;
+		var contentName = document.getElementsByTagName("meta")[6].content;
+			
+		!function(f,b,e,v,n,t,s)
+		{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+		n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+		if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+		n.queue=[];t=b.createElement(e);t.async=!0;
+		t.src=v;s=b.getElementsByTagName(e)[0];
+		s.parentNode.insertBefore(t,s)}(window, document,'script',
+		"{{ url_for('static', filename='fbevents.js') }}");
+
+		fbq('init', idPixel);
+		if ( typeof(fbq) != 'undefined' ) {
+
+			fbq('track', 'InitiateCheckout', {
+				value : Number(priceValue),
+				currency : 'IDR',
+				content_name : contentName,
+				content_category : 'Produk Lainnya',
+				}
+			);	
+		}
+		
+	</script>
+</head><!--/head-->
+
+<body>
+	<header id="header"><!--header-->
+		
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="#"><img src="/static/logo.png" alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	</header><!--/header-->
+
+	<section id="cart_items">
+		<div class="container">
+			<br>
+			<br>
+			<h2 class="heading" style="color: #FE980F;">Bagian 1 : Isi Data dan Alamat Pembeli</h2>
+			<p style="color: orangered;">*PERHATIAN : Masukan data diri dan alamat rumah dengan lengkap</p>
+			<br>
+			<div class="shopper-informations">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="shopper-info">
+							<form action = "/order/{{ single_product['route'] }}" method = "POST">
+								<p>Data Pembeli</p>
+								<input type="text" name = "name" placeholder = "Isi Nama Lengkap">
+								<input type="tel"  name = "tel_num" placeholder  = "Isi Nomor Telepon">
+								<br>
+								<br>
+								<p>Alamat Pembeli</p>
+								<input type="text" name = "jl" placeholder = "Isi Nama Jalan/gang ( contoh : jl.nagka 1)" required>
+								<input type="text" name = "rt" placeholder = "Isi Nama RT ( contoh : 3)" required>
+								<input type="text" name = "rw" placeholder = "Isi Nama RW ( contoh : 4)" required>
+								<input type="text" name = "kel" placeholder = "Isi Nama Kelurahan ( contoh : Pinang Ranti )" required>
+								<input type="text" name = "kec" placeholder = "Isi Nama Kecamatan ( contoh : Makasar )" required>
+								<input type="text" name = "city" placeholder = "Isi Nama Kota/Kabupaten ( contoh : Jakarta TImur )" required>
+								<input type="text" name = "prov" placeholder = "Isi Nama Provinsi ( contoh : DKI jakarta )" required>
+								<input type="text" name = "no" placeholder = "Isi Nomor Rumah ( contoh : 29 )" required>
+								<input type="text" name = "postal" placeholder = "Isi Kode Pos ( contoh : 12345 )" required>
+								<br>
+								<br>
+								<p>Keterangan Pesanan</p>
+								<input type="number" name = "quantity" placeholder = "Banyak Barang ( contoh : 3 )" required>
+								<textarea name="desc" cols="30" rows="10" name = "desc" placeholder = "keterangan Barang ( Jenis, Warna, Ukuran, Bentuk, dll.. )" required></textarea>
+								<br>
+								<br>
+								<button type="submit" class="btn btn-default" style="background-color : #fe980f;color : #ffffff;border-color: #fe980f;" onclick="initiateCheckoutFbPixelApi()">
+									<i class="fa fa-shopping-cart" style="color : white" ></i>
+									Pesan Sekarang
+								</button>
+								<br>
+								<br>
+								<br>
+								<br>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+
+	
+
+	<footer id="footer"><!--Footer-->
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Layanan</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Membangun Bisnis</a></li>
+								<li><a href="#">Hubungi kami</a></li>
+								<li><a href="#">Status Pesanan</a></li>
+								<li><a href="#">Laporan</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Tentang</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Bisnis</a></li>
+								<li><a href="#">Pengembang</a></li>
+								<li><a href="#">Lokasi</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>Ingin Berlangganan?</h2>
+							<form action="#" class="searchform">
+								<input type="text" placeholder="Your email address" />
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Jangan ketinggalan....<br />dapatkan selalu update produk terbaru dari TokoQu.</p>
+							</form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © <script>var CurrentYear = new Date().getFullYear()
+						document.write(CurrentYear)</script> TokoQu.</p>
+					<p class="pull-right">Inc. All rights reserved.</p>
+				</div>
+			</div>
+		</div>
+		
+	</footer><!--/Footer-->
+    <script src="/static/page/js/jquery.js"></script>
+	<script src="/static/page/js/bootstrap.min.js"></script>
+    <script src="/static/page/js/jquery.scrollUp.min.js"></script>
+    <script src="/static/page/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/page/js/main.js"></script>
+</body>
+</html>

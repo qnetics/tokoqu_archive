@@ -1,0 +1,143 @@
+<!doctype html>
+    <html>
+        <head>
+            <meta charset='utf-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1'>
+            <title>Cari Pesanan Anda</title>
+            <link href='/static/queue_search/bootstrap.min.css' rel='stylesheet'>
+            <link href='' rel='stylesheet'>
+            <script type='text/javascript' src='/static/queue_search/jquery.min.js'></script>
+            <style> 
+                body {
+                    background-color: #ffffff
+                }
+
+                .domain-search {
+                    margin: 0;
+                    padding: 206px 0
+                }
+
+                .bg-pblue {
+                    background-color: #ffffff
+                }
+
+                .domain-search .form-title {
+                    margin-top: 0;
+                    margin-bottom: 2px;
+                    color: #fff;
+                    font-family: "Poppins", sans-serif;
+                    font-weight: 100
+                }
+
+                .domain-search p {
+                    color: #ffffff;
+                    margin: 0
+                }
+
+                .domain-search .input-group {
+                    -webkit-box-shadow: 0px 4px 18px 0px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0px 4px 18px 0px rgba(0, 0, 0, 0.1)
+                }
+
+                .domain-search .input-group-addon {
+                    border: none
+                }
+
+                .domain-search .form-title strong {
+                    display: block
+                }
+
+                .domain-search .form-control {
+                    height: 60px;
+                    border-radius: 0;
+                    border: none
+                }
+
+                .domain-search .form-control:focus {
+                    box-shadow: 0px 0px 0px 0px #ffffff !important
+                }
+
+                .input-group .input-group-addon [type="submit"],
+                .input-group .input-group-addon button {
+                    border: none;
+                    border-radius: 0
+                }
+
+                .domain-search .btn {
+                    padding: 0 54px;
+                    line-height: 60px
+                }
+
+                .btn-primary {
+                    padding: 0 28px;
+                    line-height: 54px;
+                    background: #fe980f;
+                    color: #fff
+                }
+
+                .btn-primary:hover {
+                    color: #fff;
+                    background-color: #ff6726;
+                    border-color: #ff6726
+                }
+
+                .domain-search .input-group+p {
+                    color: #fff;
+                    font-size: 15px;
+                    font-family: "Poppins", sans-serif;
+                    font-weight: 100;
+                    margin-top: 15px;
+                    margin-bottom: 0
+                }
+
+                .domain-search .input-group+p strong {
+                    margin-right: 40px
+                }
+                
+                </style>
+        </head>
+        <body oncontextmenu='return false' class='snippet-body'>
+            <form class="row domain-search bg-pblue">
+                <div class="container">
+                    <a href="#" style="align-content: center;"><img style="align-content: center;" src="/static/logo.png" alt="" /></a>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h2 class="form-title" style="color: #fe980f;font-family: Arial, Helvetica, sans-serif;">Ayoo.. Cari Pesanan Anda.</strong></h2>
+                            <p style="color: #fe980f;font-family: Arial, Helvetica, sans-serif;">Cari pesanan anda bedasarkan kode pesanan</p>
+                            <br>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="input-group"> <input type="search" class="form-control queue-search" placeholder="Masukan Kode Pesanan"> <span class="input-group-addon"><input type="button" style="font-family: Arial, Helvetica, sans-serif;" value="Cari Pesanan!" class="btn btn-primary" onclick="redirectToDetailOrder()"></span> </div>
+                            <div id="invalid-queue"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <script type='text/javascript' src='/static/queue_search/bootstrap.bundle.min.js'></script>
+            <script type='text/Javascript'>
+
+                function redirectToDetailOrder() {
+
+                    const queueCode = document.getElementsByClassName("queue-search")[0].value;
+
+                    if( (queueCode.length == 19) && (queueCode[4] == "-") && (queueCode[8] == "-") && (queueCode[12] == "-") ){
+
+                        window.location.href = `/order/purchace/${queueCode}`;
+
+                    } else if ( queueCode.length == 0 ) {
+
+                        document.getElementById("invalid-queue").innerHTML="<br><p style='color: orangered;font-family: Arial, Helvetica, sans-serif;'>kode pesanan tidak boleh kosong</p>"
+
+                    } else {
+
+                        document.getElementById("invalid-queue").innerHTML="<br><p style='color: orangered;font-family: Arial, Helvetica, sans-serif;'>kode pesanan yang anda masukan salah</p>";
+
+                    }
+
+                }
+            </script>
+        </body>
+    </html>

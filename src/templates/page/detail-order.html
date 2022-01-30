@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>pesanan {{ single_product["name"] }}</title>
+    <link href="/static/page/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/page/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/page/css/prettyPhoto.css" rel="stylesheet">
+    <link href="/static/page/css/price-range.css" rel="stylesheet">
+    <link href="/static/page/css/animate.css" rel="stylesheet">
+	<link href="/static/page/css/main.css" rel="stylesheet">
+	<link href="/static/page/css/responsive.css" rel="stylesheet">
+	<style>
+		/* Styles for wrapping the search box */
+
+		.main {
+			width: 50%;
+			margin: 50px auto;
+		}
+
+		/* Bootstrap 4 text input with search icon */
+
+		.has-search .form-control {
+			padding-left: 2.375rem;
+		}
+
+		.has-search .form-control-feedback {
+			position: absolute;
+			z-index: 2;
+			display: block;
+			width: 2.375rem;
+			height: 2.375rem;
+			line-height: 2.375rem;
+			text-align: center;
+			pointer-events: none;
+			color: #aaa;
+		}
+	</style>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+</head><!--/head-->
+
+<body>
+	<header id="header"><!--header-->
+		
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="#"><img src="/static/logo.png" alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+	</header><!--/header-->
+	
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="product-details"><!--product-details-->
+						<div class="col-sm-5">
+							<div class="view-product">
+								<div id="product-images" class="carousel slide" data-ride="carousel">
+									<!-- Wrapper for slides -->
+									<div class="carousel-inner">
+										{% for single_images in range(length_single_images) %}
+											{% if single_images == 0%}
+												<div class="item active">
+													<img src="{{ single_product['product_images'][single_images] }}" alt="" />
+												</div>
+											{% else %}
+												<div class="item">
+													<img src="{{ single_product['product_images'][single_images] }}" alt="" />
+												</div>
+											{% endif %}
+										{% endfor %}
+									</div>
+
+									<!-- Controls -->
+									<a class="left item-control" href="#product-images" data-slide="prev">
+										<i class="fa fa-angle-left"></i>
+									</a>
+									<a class="right item-control" href="#product-images" data-slide="next">
+										<i class="fa fa-angle-right"></i>
+									</a>
+
+								</div>
+							</div>
+							<div id="similar-product" class="carousel slide" data-ride="carousel">
+								
+								  <!-- Wrapper for slides -->
+								    <div class="carousel-inner">
+
+										{% for index_variant in range( length_variant_images ) %}
+											{% if index_variant == 0 %}
+												<div class="item active">
+													{% for variant in variant_images %}
+														<a href="{{ variant }}"><img height="84" width="84" src="{{ variant }}" alt=""></a>
+													{% endfor %}
+												</div>
+											{% else %}
+												<div class="item">
+													{% for variant in variant_images %}
+														<a href="{{ variant }}"><img height="84" width="84" src="{{ variant }}" alt=""></a>
+													{% endfor %}
+												</div>
+											{% endif %}
+										{% endfor %}
+										
+									</div>
+
+									<!-- Controls -->
+									<a class="left item-control" href="#similar-product" data-slide="prev">
+										<i class="fa fa-angle-left"></i>
+									</a>
+									<a class="right item-control" href="#similar-product" data-slide="next">
+										<i class="fa fa-angle-right"></i>
+									</a>
+
+							</div>
+							<br>
+							<h2 style="color: #fe980f;">{{ single_product["name"] }}</h2>
+							<br>
+							<div style="display: inline-block; color: #fe980f;">
+								<i class="fa fa-fw fa-star"></i>
+								<i class="fa fa-fw fa-star"></i>
+								<i class="fa fa-fw fa-star"></i>
+								<i class="fa fa-fw fa-star"></i>
+								<i class="fa fa-fw fa-star"></i>
+							</div>
+							<br>
+							<h3>{{ single_product["price"] }}</h3>
+							<br>
+							<h4 style="color: #fe980f;">deskripsi produk</h4>
+							<p style="text-align: left;">{{ single_product["desc"] }}</p>
+							<br>
+							<h4 style="color: #fe980f;">lokasi produk</h4>
+							<h4>Jakarta, Indonesia</h4>
+							<br>
+							<h4 style="color: #fe980f;">stok barang</h4>
+							<h4>8961 barang</h4>
+							<br>
+							<h4 style="color: #fe980f;">pelanggan</h4>
+							<h4>782 orang</h4>
+							<br>
+						</div>
+						<div class="col-sm-7">
+							<div class="product-information"><!--/product-information-->
+								<h1 style="color: #fe980f; text-align: left;">Data Pesanan</h1>
+								<br>
+								<h3 style="color: #fe980f;text-align: left;">- Jumlah Pesanan :</h3>
+								<h3 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; {{ order_data["quantity"] }}</h3>
+								<h3 style="color: #fe980f;text-align: left;">- Deskripsi Pesanan :</h3>
+								<h4 style="color: #424242; text-align: left;">{{ order_data["desc"] }}</h4>
+								<br>
+								<h3 style="color: #fe980f;text-align: left;">Total Harga :</h3>
+								<h3 style="color: #424242;text-align: left;">&nbsp;&nbsp;&nbsp; {{ order_data["total"] }}</h3>
+								<br>
+								<br>
+								<h1 style="color: #fe980f;text-align: left;">Data dan Alamat Pemesan </h1>
+								<h3 style="color: #424242; text-align: left;">- Nama Pesanan :</h3>
+								<h4 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; {{ customer_data["name"] }}</h4>
+								<h3 style="color: #4b4b4b; text-align: left;">- Nomor Telepon Pesanan :</h3>
+								<h4 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; {{ customer_data["tel_num"] }}</h4>
+								<h3 style="color: #4b4b4b; text-align: left;">- Alamat Pemesan :</h3>
+								<h4 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; * Jalan : {{ customer_data["jl"] }}</h4>
+								<h4 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; * RT&nbsp;&nbsp;&nbsp; : {{ customer_data["rt"] }}</h4>
+								<h4 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; * RW&nbsp;&nbsp;&nbsp; : {{ customer_data["rw"] }}</h4>
+								<h4 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; * kel&nbsp;&nbsp; : {{ customer_data["kel"] }}</h4>
+								<h4 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; * kec&nbsp;&nbsp; : {{ customer_data["kec"] }}</h4>
+								<h4 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; * city&nbsp; : {{ customer_data["city"] }}</h4>
+								<h4 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; * prov&nbsp; : {{ customer_data["prov"] }}</h4>
+								<h4 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; * nomor rumah : {{ customer_data["no"] }}</h4>
+								<h4 style="color: #424242; text-align: left;">&nbsp;&nbsp;&nbsp; * nomor pos : {{ customer_data["postal"] }}</h4>
+								<br>
+								<br>
+								<h1 style="color: #fe980f;text-align: left;">Rekening</h1>
+								<br>
+								<div class="bank-mandiri">
+									<div style="text-align: left;"><img height="48" width="200" src="https://orderonline.id/images/bank-mandiri.png" alt=""></div>
+									<h4 style="text-align: left;">No Rek. 1670000900521</h4>
+									<h4 style="text-align: left;">Budi Endang</h4>
+								</div>
+								<br>
+								<br>
+								<div class="bank-bni">
+									<div style="text-align: left;"><img height="48" width="200" src="https://orderonline.id/images/bank-bni.png" alt=""></div>
+									<h4 style="text-align: left;">No Rek. 0805805853</h4>
+									<h4 style="text-align: left;">Budi Endang</h4>
+								</div>
+								<br>
+								<br>
+								<div class="bank-bca">
+									<div style="text-align: left;"><img height="48" width="200" src="https://orderonline.id/images/bank-bca.png" alt=""></div>
+									<h4 style="text-align: left;">No Rek. 1650690032</h4>
+									<h4 style="text-align: left;">Budi Endang</h4>
+								</div>
+								<br>
+								<br>
+								<div class="bank-bri">
+									<div style="text-align: left;"><img height="48" width="200" src="https://orderonline.id/images/bank-bri.png" alt=""></div>
+									<h4 style="text-align: left;">No Rek. 771601001451503</h4>
+									<h4 style="text-align: left;">Budi Endang</h4>
+								</div>
+								<br>
+								<br>
+								<h2 style="color: #fe980f;text-align: left;">{{ customer_data['status'] }}</h2>
+								<br>
+								<br>
+								<a href="https://api.whatsapp.com/send?phone=6285718906257&text=Assalamualaikum Admin, saya ingin tahu kabar pesanan saya dengan kode antrean *{{ order_data['queue_code'] }}*" target="_blank">
+									<button type="submit" class="btn btn-default" style="background-color : #25D366;color : #ffffff;border-color: #25D366;">
+										<i class="fa fa-info" style="color : white"></i> Tanya Pembeli 
+									</button>
+								</a>
+								<br>
+								<br>
+								<a href="https://api.whatsapp.com/send?phone=6285718906257&text=Assalamualaikum Admin, saya ingin mengirimkan bukti pembayaran" target="_blank">
+									<button type="submit" class="btn btn-default" style="background-color : #0fb2fe;color : #ffffff;border-color: #0fb2fe;">
+										<i class="fa-inr" style="color : white"></i> Kirim Bukti Pembayaran
+									</button>
+								</a>
+							</div><!--/product-information-->
+						</div>
+					</div><!--/product-details-->
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<footer id="footer"><!--Footer-->
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Layanan</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Membangun Bisnis</a></li>
+								<li><a href="#">Hubungi kami</a></li>
+								<li><a href="#">Status Pesanan</a></li>
+								<li><a href="#">Laporan</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="single-widget">
+							<h2>Tentang</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li><a href="#">Bisnis</a></li>
+								<li><a href="#">Pengembang</a></li>
+								<li><a href="#">Lokasi</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3 col-sm-offset-1">
+						<div class="single-widget">
+							<h2>Ingin Berlangganan?</h2>
+							<form action="#" class="searchform">
+								<input type="text" placeholder="Your email address" />
+								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+								<p>Jangan ketinggalan....<br />dapatkan selalu update produk terbaru dari TokoQu.</p>
+							</form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<p class="pull-left">Copyright © <script>var CurrentYear = new Date().getFullYear()
+						document.write(CurrentYear)</script> TokoQu.</p>
+					<p class="pull-right">Inc. All rights reserved.</p>
+				</div>
+			</div>
+		</div>
+		
+	</footer><!--/Footer-->
+	
+    <script src="/static/page/js/jquery.js"></script>
+	<script src="/static/page/js/price-range.js"></script>
+    <script src="/static/page/js/jquery.scrollUp.min.js"></script>
+	<script src="/static/page/js/bootstrap.min.js"></script>
+    <script src="/static/page/js/jquery.prettyPhoto.js"></script>
+    <script src="/static/page/js/main.js"></script>
+</body>
+</html>
