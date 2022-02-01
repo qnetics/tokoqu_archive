@@ -1,18 +1,29 @@
-import locale
-
 def rupiah_format(angka, with_prefix) -> str :
 
-    desimal = 2
+    str_value = str(angka)
 
-    locale.setlocale(locale.LC_ALL, "de_DE.UTF-8")
-    locale.setlocale(locale.LC_NUMERIC, 'IND')
-    rupiah = locale.format("%.*f", (desimal, angka), True)
+    separate_decimal = str_value.split(".")
+    after_decimal    = separate_decimal[0]
 
-    if with_prefix:
+    reverse = after_decimal[::-1]
+    
+    temp_reverse_value = ""
 
-        return "Rp. {}".format(rupiah)
-        
-    return rupiah
+    for index, val in enumerate(reverse):
+        if (index + 1) % 3 == 0 and index + 1 != len(reverse):
+            temp_reverse_value += val + "."
+        else:
+            temp_reverse_value += val
+
+    temp_result = temp_reverse_value[::-1]
+
+    if with_prefix :
+
+        return "Rp. " + temp_result + ",00"
+
+    else :
+
+        return temp_result + ",00"
 
 
 

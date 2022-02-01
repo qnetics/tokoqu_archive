@@ -78,7 +78,7 @@
 
         // generate qrcode
 		var str = document.getElementsByClassName("qrcode-value")[0].innerText;
-		new QRCode(document.getElementById("qrcode"), `${location.host}/order/purchace/${str}`);
+		new QRCode(document.getElementById("qrcode"), `${location.protocol}//${location.host}/order/purchace/${str}`);
         
 	</script>
 </body>
