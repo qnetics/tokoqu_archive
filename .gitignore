@@ -1,1 +1,9 @@
 .vercel
+Include
+Lib
+Scripts
+activate.bat
+deploy.bat
+deploy.sh
+payloads.txt
+pyvenv.cfg
